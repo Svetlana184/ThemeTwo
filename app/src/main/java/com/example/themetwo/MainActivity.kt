@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.example.themetwo.ui.theme.ThemeTwoTheme
@@ -30,10 +32,13 @@ class MainActivity : ComponentActivity() {
             //1 вариант
             //var count = remember { mutableStateOf(0) }
             //2 вариант
-            var count by remember { mutableStateOf(0) }
+            //var count by remember { mutableStateOf(0) }
+            //3 вариант
+            var (count, setValue) = remember { mutableStateOf(0) }
             Box(contentAlignment = Alignment.Center){
-                Column() {
-                    Text("Clicks : ${count}", fontSize = 28.sp)
+                Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,
+                    ) {
+                    Text("Clicks : ${setValue(++count)}", fontSize = 28.sp)
                     Button(onClick = {count++}) {
                         Text("Click me!")
                     }
